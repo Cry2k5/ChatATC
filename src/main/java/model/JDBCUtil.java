@@ -10,7 +10,7 @@ public class JDBCUtil {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/chatatc+","root","");
+			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/chatatc","root","");
 			
 			return connect;
 		} catch (SQLException | ClassNotFoundException e) {

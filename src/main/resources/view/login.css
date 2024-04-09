@@ -1,11 +1,8 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .container{
-	-fx-background-color:#90f0fef7;
+	-fx-background-color: white;
   	-fx-background-position: center;
   	-fx-font-family: Arial, sans-serif;
-  	
-  	
-  	
 }
 
 .font{
@@ -14,8 +11,7 @@
 }
 .formsignup{
   -fx-background-radius: 10px 10px 10px 10px;
-  		-fx-background-color: linear-gradient(to bottom, #cef6fff7,#abf0fff7);
-  
+	-fx-background-color: rgba(255, 255, 255, 0.5);
 }
 
 .font-button{
@@ -28,22 +24,25 @@
 }
 .textfeild{
 	-fx-background-color: transparent;
-	-fx-border-color: #0080ffd3;
+	-fx-border-color: #5a5d60;
 	-fx-border-width: 0 0 2px 0;
-	-fx-prompt-text-fill: #5c69faf7;
-	-fx-text-fill: #0e22fff7;
+	-fx-prompt-text-fill: black;
+	-fx-text-fill: black;
 }
 
 .button{
-		-fx-background-color:#1bbfe4f7;
-			-fx-cursor: hand
+		-fx-background-color:white;
+			-fx-cursor: hand;
+	-fx-text-fill: #2abd5e;
 		
 }
 .button:hover{
-  		-fx-background-color: linear-gradient(to bottom, #7ae7fff7, #62e2fff7);
+  		-fx-background-color: #2abd5e;
+	-fx-text-fill: white;
 }
 
 .link{
 	-fx-underline: false;
 }
+
 

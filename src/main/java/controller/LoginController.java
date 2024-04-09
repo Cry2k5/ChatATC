@@ -13,11 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,7 +26,8 @@ import model.data;
 
 public class LoginController {
 
-    @FXML
+	public Label signin_error;
+	@FXML
     private TextField lo_email;
 
     @FXML
@@ -85,13 +82,15 @@ public void loginBtn() throws Exception{
 		//check the email or password feild do write yet? if not, give notification error!
 
 			if (lo_email.getText().isEmpty() || lo_password.getText().isEmpty()) {
-				alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Error Message");
-				alert.setHeaderText(null);
-				alert.setContentText("Please enter email/password!");
-				alert.showAndWait();
+//				alert = new Alert(AlertType.ERROR);
+//				alert.setTitle("Error Message");
+//				alert.setHeaderText(null);
+//				alert.setContentText("Please enter email/password!");
+//				alert.showAndWait();
+				signin_error.setText("Please enter email and password!");
 			} 
 			else {
+				signin_error.setText(null);
 				String selectData = "SELECT name, email, password FROM user WHERE email = ? and password = ?";
 
 				connect = JDBCUtil.getConnection();
@@ -108,11 +107,11 @@ public void loginBtn() throws Exception{
 						
 						data.name = result.getString("name");
 						
-						alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Information Message");
-						alert.setHeaderText(null);
-						alert.setContentText("Successfully Login!");
-						alert.showAndWait();
+//						alert = new Alert(AlertType.INFORMATION);
+//						alert.setTitle("Information Message");
+//						alert.setHeaderText(null);
+//						alert.setContentText("Successfully Login!");
+//						alert.showAndWait();
 						
 						
 						//Kết nối với giao diện chính khi đăng nhập thành công.
@@ -124,7 +123,7 @@ public void loginBtn() throws Exception{
 						
 						//Image image = new Image(getClass().getResourceAsStream("/view/images/cafe.png"));
 						//stage.getIcons().add(image);
-						stage.setTitle("ChatATC+ Application");
+						stage.setTitle("ChatATC Application");
 						
 						stage.setScene(scene);
 						stage.show();
@@ -132,13 +131,13 @@ public void loginBtn() throws Exception{
 						lo_signin.getScene().getWindow().hide();
 
 					} else {
-						// Nếu không sẽ xuất hiện thông báo
-						alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error Message");
-						alert.setHeaderText(null);
-						alert.setContentText("Incorrect Username/Password !");
-						alert.showAndWait();
-
+//						// Nếu không sẽ xuất hiện thông báo
+//						alert = new Alert(AlertType.ERROR);
+//						alert.setTitle("Error Message");
+//						alert.setHeaderText(null);
+//						alert.setContentText("Incorrect Username/Password !");
+//						alert.showAndWait();
+						signin_error.setText("Incorrect information!");
 					}
 				} 
 	}
