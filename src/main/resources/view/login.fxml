@@ -123,6 +123,23 @@
                   <ImageView fx:id="re_avatar" fitHeight="50.0" fitWidth="50.0" layoutX="75.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="verify_view" layoutX="57.0" layoutY="253.0" prefHeight="226.0" prefWidth="387.0" styleClass="formverifyOTP" stylesheets="@login.css" visible="false">
+               <children>
+                  <Label layoutX="138.0" layoutY="14.0" prefHeight="42.0" prefWidth="110.0" text="Verify Code">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="verify_OTP" layoutX="100.0" layoutY="100.0" prefHeight="42.0" prefWidth="190.0" promptText="Enter OTP here..." />
+                  <Label layoutX="76.0" layoutY="56.0" prefHeight="23.0" prefWidth="238.0" text="Check your mail to get verify code">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="verify_OK_btn" layoutX="95.0" layoutY="160.0" mnemonicParsing="false" onAction="#verifyOKbtn" prefHeight="42.0" prefWidth="85.0" stylesheets="@login.css" text="OK" />
+                  <Button fx:id="verify_Cancel_btn" layoutX="205.0" layoutY="160.0" mnemonicParsing="false" onAction="#verifyCancelbtn" prefHeight="42.0" prefWidth="86.0" stylesheets="@login.css" text="Cancel" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>
