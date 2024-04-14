@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
@@ -24,7 +27,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.JDBCUtil;
 import model.data;
 
-public class LoginController {
+public class LoginController extends Thread{
+	private static final int MIN_PORT = 1024;
+	private static final int MAX_PORT = 65535;
+	private static final int MAX_TRIES = 100;
 
 	public Label signin_error;
 	@FXML
@@ -74,19 +80,14 @@ public class LoginController {
     private Connection connect;
 	private PreparedStatement prepare;
 	private ResultSet result;
-	
-	
+	public static String nameAccount = null;
+
 public void loginBtn() throws Exception{
 
 		
 		//check the email or password feild do write yet? if not, give notification error!
 
 			if (lo_email.getText().isEmpty() || lo_password.getText().isEmpty()) {
-//				alert = new Alert(AlertType.ERROR);
-//				alert.setTitle("Error Message");
-//				alert.setHeaderText(null);
-//				alert.setContentText("Please enter email/password!");
-//				alert.showAndWait();
 				signin_error.setText("Please enter email and password!");
 			} 
 			else {
@@ -104,14 +105,11 @@ public void loginBtn() throws Exception{
 
 					// Nếu đăng nhập thành công sẽ chuyển sang giao diện chính của chương trình
 					if (result.next()) {
+
+						nameAccount = result.getString("name");
+						System.out.println(result.getString("name"));
 						
 						data.name = result.getString("name");
-						
-//						alert = new Alert(AlertType.INFORMATION);
-//						alert.setTitle("Information Message");
-//						alert.setHeaderText(null);
-//						alert.setContentText("Successfully Login!");
-//						alert.showAndWait();
 						
 						
 						//Kết nối với giao diện chính khi đăng nhập thành công.
@@ -119,29 +117,38 @@ public void loginBtn() throws Exception{
 						
 						Stage stage = new Stage();
 						Scene scene = new Scene(root);
-						
-						
-						//Image image = new Image(getClass().getResourceAsStream("/view/images/cafe.png"));
-						//stage.getIcons().add(image);
+
 						stage.setTitle("ChatATC Application");
 						
 						stage.setScene(scene);
 						stage.show();
-						
+
+
 						lo_signin.getScene().getWindow().hide();
 
 					} else {
-//						// Nếu không sẽ xuất hiện thông báo
-//						alert = new Alert(AlertType.ERROR);
-//						alert.setTitle("Error Message");
-//						alert.setHeaderText(null);
-//						alert.setContentText("Incorrect Username/Password !");
-//						alert.showAndWait();
 						signin_error.setText("Incorrect information!");
 					}
 				} 
 	}
+	public int findAvailablePortInRange(int minPort, int maxPort) throws IOException {
+		Random rand = new Random();
+		int tries = 0;
+		int portRange = maxPort - minPort;
+		while (tries < MAX_TRIES) {
+			int port = rand.nextInt(portRange) + minPort;
+			try (ServerSocket serverSocket = new ServerSocket(port)) {
+				return port;
+			} catch (IOException e) {
+				tries++;
+			}
+		}
+		throw new IOException("No available port found in range.");
+	}
 
+	public void creatSocket(){
+
+	}
 	
 	public static String encodePassword(String password)
 	{

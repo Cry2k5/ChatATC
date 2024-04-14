@@ -11,7 +11,7 @@
 }
 .formsignup{
   -fx-background-radius: 10px 10px 10px 10px;
-	-fx-background-color: rgba(255, 255, 255, 0.5);
+	-fx-background-color: rgba(255, 255, 255, 0.8);
 }
 
 .font-button{
@@ -33,11 +33,11 @@
 .button{
 		-fx-background-color:white;
 			-fx-cursor: hand;
-	-fx-text-fill: #2abd5e;
+	-fx-text-fill: #3b88be;
 		
 }
 .button:hover{
-  		-fx-background-color: #2abd5e;
+  		-fx-background-color: #3b88be;
 	-fx-text-fill: white;
 }
 
