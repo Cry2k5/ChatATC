@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dc93a8f2-6ab3-486b-9e05-e6696d059edb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/FriendController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +70,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.Main" />
       <module name="ChatATC" />
@@ -143,7 +143,8 @@
       <workItem from="1713254968822" duration="13000" />
       <workItem from="1713254999777" duration="12243000" />
       <workItem from="1713281219300" duration="3061000" />
-      <workItem from="1713284539217" duration="7813000" />
+      <workItem from="1713284539217" duration="9290000" />
+      <workItem from="1713294149025" duration="1927000" />
     </task>
     <servers />
   </component>

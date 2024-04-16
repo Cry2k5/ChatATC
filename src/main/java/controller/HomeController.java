@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -177,7 +178,6 @@ public class HomeController {
         messengerScene.getChildren().add(newMessage);
         sendMessage(FriendController.name, messenger.getText());
     }
-    public String namefriend;
 
         public void connect() {
             try {
@@ -234,20 +234,45 @@ public class HomeController {
 
                     // Xử lý tin nhắn nhận được từ server
                     handleMessage(messageMap);
-                    System.out.println("hashmap from listen:"+messageMap);
+                    System.out.println("hashmap from listen:"+ messageMap);
+                    recivice(messageMap.get("message"));
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
         listenThread.start();
     }
+    public void recivice(String messengerr) throws Exception {
+        Platform.runLater(() -> {
+            // Tạo một label để đại diện cho ô tin nhắn mới
+            Label newMessage = new Label(messengerr);
+
+            // Thiết lập căn lề và giao diện của label
+            newMessage.setPadding(new Insets(10));
+            messenger_scene.setSpacing(20);
+            messenger_scene.setPadding(new Insets(5));
+            newMessage.setBackground(new Background(new BackgroundFill(Color.GRAY, new CornerRadii(20), null)));
+            newMessage.setTextFill(Color.WHITE); // Thiết lập màu chữ là màu trắng
+            newMessage.setFont(Font.font(15)); // Thiết lập font là cỡ chữ 14
+            messenger_scene.setAlignment(Pos.TOP_LEFT);
+
+            // Đặt id để có thể tìm kiếm trong VBox
+            newMessage.setId("message1");
+            VBox messengerScene = (VBox) scene_chat.lookup("#messenger_scene");
+            // Thêm label vào VBox
+            messengerScene.getChildren().add(newMessage);
+        });
+    }
+
 
     private void handleMessage(HashMap<String, String> messageMap) {
         // Kiểm tra xem tin nhắn có dành cho client này không
         String recipient = messageMap.get("recipient");
-        System.out.println(LoginController.nameAccount);
-        if (recipient != null &&recipient.equals(LoginController.nameAccount)) {
+        System.out.println(FriendController.name);
+        if (recipient != null &&recipient.equals(FriendController.name)) {
             // Hiển thị tin nhắn cho người dùng
             String message = messageMap.get("message");
             System.out.println("Nhận được tin nhắn từ server: " + message);
