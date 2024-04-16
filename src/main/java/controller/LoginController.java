@@ -149,26 +149,28 @@ public void loginBtn() throws Exception{
 
 
 						lo_signin.getScene().getWindow().hide();
+						HomeController homeController = new HomeController();
+						homeController.connect();
 
 					} else {
 						signin_error.setText("Incorrect information!");
 					}
 				} 
 	}
-	public int findAvailablePortInRange(int minPort, int maxPort) throws IOException {
-		Random rand = new Random();
-		int tries = 0;
-		int portRange = maxPort - minPort;
-		while (tries < MAX_TRIES) {
-			int port = rand.nextInt(portRange) + minPort;
-			try (ServerSocket serverSocket = new ServerSocket(port)) {
-				return port;
-			} catch (IOException e) {
-				tries++;
-			}
-		}
-		throw new IOException("No available port found in range.");
-	}
+//	public int findAvailablePortInRange(int minPort, int maxPort) throws IOException {
+//		Random rand = new Random();
+//		int tries = 0;
+//		int portRange = maxPort - minPort;
+//		while (tries < MAX_TRIES) {
+//			int port = rand.nextInt(portRange) + minPort;
+//			try (ServerSocket serverSocket = new ServerSocket(port)) {
+//				return port;
+//			} catch (IOException e) {
+//				tries++;
+//			}
+//		}
+//		throw new IOException("No available port found in range.");
+//	}
 	
 	public static String encodePassword(String password)
 	{

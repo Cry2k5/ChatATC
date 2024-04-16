@@ -47,12 +47,21 @@ public class HomeController {
     public AnchorPane scene_setting;
     public AnchorPane scene_account;
 
-    public  ScrollPane friend_scene;
+    private static final String SERVER_ADDRESS = "localhost";
+    private static final int PORT = 12345;
+
+    private Socket socket;
+    private ObjectOutputStream outputStream;
+    private ObjectInputStream inputStream;
+
+    public ScrollPane friend_scene;
     public VBox messenger_scene;
 
     public TextArea messenger;
 
     public HomeController() throws IOException {
+        connect();
+        listenToServer();
     }
 
 
@@ -166,153 +175,89 @@ public class HomeController {
         VBox messengerScene = (VBox) scene_chat.lookup("#messenger_scene");
         // Thêm label vào VBox
         messengerScene.getChildren().add(newMessage);
-
-        // Gửi tin nhắn đến server
-        sendMessage(messenger.getText());
+        sendMessage(namefriend, messenger.getText());
+    }
+    public String namefriend;
+    public void setName(String namef){
+        System.out.println(namef);
+        namefriend = namef;
+        System.out.println(namefriend);
+    }
+    public String getName(){
+        System.out.println(namefriend);
+        return namefriend;
     }
 
+        public void connect() {
+            try {
+                // Kết nối tới server
+                socket = new Socket(SERVER_ADDRESS, PORT);
+                System.out.println("Đã kết nối tới server");
 
-    //CLIENT------------------------------------------------------
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int PORT = 12345;
-
-    public class Client {
-        public Socket socket = new Socket(SERVER_ADDRESS, PORT);
-        private BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        private  BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-        public Client() throws Exception {
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
-
-            new Thread(() -> {
-                while (true) {
+                // Khởi tạo outputStream và inputStream trong các luồng riêng biệt
+                Thread outputThread = new Thread(() -> {
                     try {
-                        String message = reader.readLine();
-                        if (message != null) {
-                            System.out.println(message);
-                        } else {
-                            System.out.println("Server disconnected");
-                            break;
-                        }
-                    } catch (Exception e) {
+                        outputStream = new ObjectOutputStream(socket.getOutputStream());
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-            }).start();
-            System.out.println("Enter your username: ");
-            String username = null;
-            out.writeBytes(username + "\n");
-            while (true) {
-                System.out.println("Enter username to send");
-                String usernameToSend = null;
-                System.out.println("Enter message to send");
-                String message = null;
-                out.writeBytes(usernameToSend + "\n");
-                out.writeBytes(username+": "+message + "\n");
-                out.flush();
-            }
-        }
-    }
+                });
+                outputThread.start();
 
-
-
-
-    class ClientHandler extends Thread {
-        private String username;
-        private BufferedReader in;
-        private DataOutputStream out;
-        private HashMap<String,ClientHandler> clients;
-        public ClientHandler(String username, BufferedReader in, DataOutputStream out, HashMap<String,ClientHandler> clients) {
-            this.in = in;
-            this.out = out;
-            this.clients = clients;
-            clients.put(username,this);
-            start();
-        }
-
-        public void send(String message) {
-            try {
-                out.writeBytes(message + "\n");
-                out.flush(); // Ensure data is sent immediately
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void sendTo(String username, String message) {
-            ClientHandler client = clients.get(username);
-            if (client != null) {
-                client.send(message);
-            }
-        }
-
-        public void run() {
-            while (true) {
-                try {
-                    String username = in.readLine();
-                    String message = in.readLine();
-                    if (message == null) { // Client disconnected
-                        break;
+                Thread inputThread = new Thread(() -> {
+                    try {
+                        inputStream = new ObjectInputStream(socket.getInputStream());
+                        listenToServer(); // Bắt đầu lắng nghe dữ liệu từ server sau khi khởi tạo inputStream
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    System.out.println(message);
-                    sendTo(username,message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            }
-            try {
-                in.close();
-                out.close();
+                });
+                inputThread.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+    public void sendMessage(String recipient, String message) {
+        try {
+            // Tạo HashMap chứa thông tin tin nhắn
+            HashMap<String, String> messageMap = new HashMap<>();
+            messageMap.put("recipient", recipient);
+            messageMap.put("message", message);
+
+            // Gửi HashMap tới server
+            outputStream.writeObject(messageMap);
+            outputStream.flush();
+            System.out.println("Đã gửi tin nhắn tới server: " + messageMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    private void listenToServer() {
+        Thread listenThread = new Thread(() -> {
+            try {
+                while (true) {
+                    // Nhận HashMap từ server
+                    HashMap<String, String> messageMap = (HashMap<String, String>) inputStream.readObject();
 
-//    public void sendMessage(String message) {
-//        try {
-//            writer.write(message);
-//            writer.newLine();
-//            writer.flush();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    public void receiveMessage() throws IOException {
-        Label receiveMessage = new Label(reader.readLine());
-        System.out.println(reader.readLine());
-
-        // Thiết lập căn lề và giao diện của label
-        receiveMessage.setPadding(new Insets(10));
-        messenger_scene.setSpacing(20);
-        messenger_scene.setPadding(new Insets(5));
-        receiveMessage.setBackground(new Background(new BackgroundFill(Color.GRAY, new CornerRadii(20), null)));
-        receiveMessage.setTextFill(Color.WHITE); // Thiết lập màu chữ là màu trắng
-        receiveMessage.setFont(Font.font(15)); // Thiết lập font là cỡ chữ 14
-        messenger_scene.setAlignment(Pos.TOP_LEFT);
-
-
-        // Đặt id để có thể tìm kiếm trong VBox
-        receiveMessage.setId("message");
-        VBox messengerScene = (VBox) scene_chat.lookup("#messenger_scene");
-        // Thêm label vào VBox
-        messengerScene.getChildren().add(receiveMessage);
+                    // Xử lý tin nhắn nhận được từ server
+                    handleMessage(messageMap);
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        listenThread.start();
     }
 
-
-
-//        public void disconnect() {
-//            try {
-//                if (socket != null) {
-//                    socket.close();
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
+    private void handleMessage(HashMap<String, String> messageMap) {
+        // Kiểm tra xem tin nhắn có dành cho client này không
+        String recipient = messageMap.get("recipient");
+        if (recipient.equals(null)) {
+            // Hiển thị tin nhắn cho người dùng
+            String message = messageMap.get("message");
+            System.out.println("Nhận được tin nhắn từ server: " + message);
+        }
+    }
 }

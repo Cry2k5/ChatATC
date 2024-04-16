@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc93a8f2-6ab3-486b-9e05-e6696d059edb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/FriendController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/hello.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/friend.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/friend.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/home.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +27,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;quyetchien2k5&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="c42b1940-3ff6-4331-a816-4b4931728736" />
+        <option name="url" value="https://github.com/Cry2k5/ChatATC.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -129,22 +140,28 @@
       <workItem from="1713249102624" duration="375000" />
       <workItem from="1713251496702" duration="649000" />
       <workItem from="1713252997360" duration="71000" />
-      <workItem from="1713253084322" duration="374000" />
+      <workItem from="1713253084322" duration="1586000" />
+      <workItem from="1713254693298" duration="71000" />
+      <workItem from="1713254811927" duration="142000" />
+      <workItem from="1713254968822" duration="13000" />
+      <workItem from="1713254999777" duration="12243000" />
+      <workItem from="1713281219300" duration="3061000" />
+      <workItem from="1713284539217" duration="4509000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controller/HomeController.java</url>
-          <line>174</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

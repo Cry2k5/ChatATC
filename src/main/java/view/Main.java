@@ -8,10 +8,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import controller.*;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
 
 public class Main extends Application {
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {

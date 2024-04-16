@@ -1,42 +1,58 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
-public class Server{
+public class Server {
+    private static final int PORT = 12345;
 
+    public Server() throws IOException {
+        ServerSocket serverSocket = new ServerSocket(PORT);
+        System.out.println("Đang chờ kết nối..........");
 
-    public static void main(String[] args) {
-        final int PORT = 12345;
+        while (true) {
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Đã kết nối với client " + clientSocket.getInetAddress());
 
-        try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
-            System.out.println("Server đã khởi động và đang chờ kết nối...");
+            // Xử lý kết nối từ client trong một luồng riêng biệt
+            Thread thread = new Thread(() -> {
+                try {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                    DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
-                Socket clientSocket = serverSocket.accept();
-                while (true) {
-                    Socket socket = serverSocket.accept();
-                    System.out.println("Client connected");
+                    // Đọc dữ liệu từ client
+                    ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+                    HashMap<String, String> receivedData = (HashMap<String, String>) objectInputStream.readObject();
+                    System.out.println("Dữ liệu nhận được từ client: " + receivedData);
+
+                    // Xử lý dữ liệu (ở đây, bạn có thể thêm logic xử lý dữ liệu nhận được)
+
+                    // Tạo HashMap để gửi lại cho client
+                    HashMap<String, String> responseData = new HashMap<>();
+                    responseData.put("response", "Dữ liệu đã được xử lý thành công!");
+
+                    // Gửi lại dữ liệu cho client
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                    objectOutputStream.writeObject(responseData);
+                    objectOutputStream.flush();
+                    System.out.println("Đã gửi dữ liệu trả lại cho client");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
                     try {
-                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
-                        String username = in.readLine();
-                        ClientHandler clientHandler = new ClientHandler(username,in, out, clients);
-                    }
-                    catch (Exception e) {
-                        socket.close();
+                        clientSocket.close();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+            });
+            thread.start();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Server();
     }
 }

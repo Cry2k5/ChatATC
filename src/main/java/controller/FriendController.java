@@ -25,12 +25,12 @@ public class FriendController {
 
 
 
-    public static String name;
+    public  String name;
     public ImageView friends_avatar;
     public  Label friends_name;
 
 
-    public static List<User> getUser() throws SQLException {
+    public List<User> getUser() throws SQLException {
         List<User> datalist = new ArrayList<>();
 
         String friendQuery = "SELECT name, avatar FROM user WHERE name != ?";
@@ -44,6 +44,8 @@ public class FriendController {
             User user = new User();
 
         user.setname(result.getString("name"));
+        name = result.getString("name");
+            System.out.println(name);
 
         user.setimage(result.getString("avatar"));
 
@@ -51,6 +53,7 @@ public class FriendController {
         }
     return datalist;
     }
+
 
     public void setData(User user) {
         friends_name.setText(user.getname());
@@ -71,12 +74,12 @@ public class FriendController {
     }
 
 
-    public  void connectSocketclick(MouseEvent mouseEvent) {
+    public  void connectSocketclick(MouseEvent mouseEvent) throws IOException {
       name = friends_name.getText();
         System.out.println(name);
+        HomeController homeController = new HomeController();
+        homeController.setName(name);
     }
-    public String getName() {
-        return name;
-    }
+
 }
 
