@@ -175,18 +175,9 @@ public class HomeController {
         VBox messengerScene = (VBox) scene_chat.lookup("#messenger_scene");
         // Thêm label vào VBox
         messengerScene.getChildren().add(newMessage);
-        sendMessage(namefriend, messenger.getText());
+        sendMessage(FriendController.name, messenger.getText());
     }
     public String namefriend;
-    public void setName(String namef){
-        System.out.println(namef);
-        namefriend = namef;
-        System.out.println(namefriend);
-    }
-    public String getName(){
-        System.out.println(namefriend);
-        return namefriend;
-    }
 
         public void connect() {
             try {
@@ -243,6 +234,7 @@ public class HomeController {
 
                     // Xử lý tin nhắn nhận được từ server
                     handleMessage(messageMap);
+                    System.out.println("hashmap from listen:"+messageMap);
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -254,7 +246,8 @@ public class HomeController {
     private void handleMessage(HashMap<String, String> messageMap) {
         // Kiểm tra xem tin nhắn có dành cho client này không
         String recipient = messageMap.get("recipient");
-        if (recipient.equals(null)) {
+        System.out.println(LoginController.nameAccount);
+        if (recipient != null &&recipient.equals(LoginController.nameAccount)) {
             // Hiển thị tin nhắn cho người dùng
             String message = messageMap.get("message");
             System.out.println("Nhận được tin nhắn từ server: " + message);

@@ -25,7 +25,7 @@ public class FriendController {
 
 
 
-    public  String name;
+    public static String name;
     public ImageView friends_avatar;
     public  Label friends_name;
 
@@ -77,8 +77,7 @@ public class FriendController {
     public  void connectSocketclick(MouseEvent mouseEvent) throws IOException {
       name = friends_name.getText();
         System.out.println(name);
-        HomeController homeController = new HomeController();
-        homeController.setName(name);
+
     }
 
 }
