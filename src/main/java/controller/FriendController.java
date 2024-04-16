@@ -10,10 +10,7 @@ import javafx.scene.layout.VBox;
 import model.JDBCUtil;
 import model.User;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
@@ -21,12 +18,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FriendController {
 
-    public ImageView frient_avatar;
-    public Label friend_name;
+
+
+    public static String name;
+    public ImageView friends_avatar;
+    public  Label friends_name;
 
 
     public static List<User> getUser() throws SQLException {
@@ -52,8 +53,8 @@ public class FriendController {
     }
 
     public void setData(User user) {
-        friend_name.setText(user.getname());
-        frient_avatar.setImage(urlToImage(user.getimage()));
+        friends_name.setText(user.getname());
+        friends_avatar.setImage(urlToImage(user.getimage()));
     }
 
     public static Image urlToImage(String imagePath) {
@@ -70,40 +71,12 @@ public class FriendController {
     }
 
 
-    public void connectSocketclick(MouseEvent mouseEvent) {
-        new Thread(() -> {
-            try {
-                ServerSocket serverSocket = new ServerSocket(12345);
-                Socket clientSocket = serverSocket.accept();
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-                String message;
-                while ((message = in.readLine()) != null) {
-                    System.out.println("Received message from client: " + message);
-                }
-
-                in.close();
-                clientSocket.close();
-                serverSocket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-
-        new Thread(() -> {
-            try {
-                Socket socket = new Socket("localhost", 12345);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-                // Send message to server
-                out.println("Hello ");
-
-                out.close();
-                socket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
+    public  void connectSocketclick(MouseEvent mouseEvent) {
+      name = friends_name.getText();
+        System.out.println(name);
+    }
+    public String getName() {
+        return name;
     }
 }
 

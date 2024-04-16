@@ -1,10 +1,14 @@
 package view;
 	
+import com.mysql.cj.xdevapi.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import controller.*;
+
+import java.io.IOException;
 
 
 public class Main extends Application {
@@ -20,7 +24,7 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
 }

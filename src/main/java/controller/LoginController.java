@@ -169,10 +169,6 @@ public void loginBtn() throws Exception{
 		}
 		throw new IOException("No available port found in range.");
 	}
-
-	public void creatSocket(){
-
-	}
 	
 	public static String encodePassword(String password)
 	{
