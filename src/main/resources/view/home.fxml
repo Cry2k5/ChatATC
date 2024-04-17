@@ -80,7 +80,7 @@
                         <Font name="Bauhaus 93" size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="21.0" layoutY="55.0" prefHeight="21.0" prefWidth="184.0" text="Quyet Chien">
+                  <Label fx:id="nameAccount" alignment="CENTER" layoutX="21.0" layoutY="55.0" prefHeight="21.0" prefWidth="184.0" text="Account">
                      <font>
                         <Font name="Bauhaus 93" size="24.0" />
                      </font>
@@ -88,7 +88,7 @@
                   <Line endX="100.0" layoutX="113.0" layoutY="83.0" startX="-100.0" />
                </children>
             </AnchorPane>
-            <ImageView disable="true" fitHeight="68.0" fitWidth="68.0" layoutX="93.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="image_avatar">
+            <ImageView fx:id="avatarAccount" disable="true" fitHeight="68.0" fitWidth="68.0" layoutX="93.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="image_avatar">
                <image>
                   <Image url="@../image/download (1).jpg" />
                </image>
@@ -115,15 +115,16 @@
                   <Font name="Bauhaus 93" size="24.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="249.0" layoutY="29.0" prefHeight="579.0" prefWidth="678.0" styleClass="information" stylesheets="@home.css">
+            <AnchorPane fx:id="chatscene" layoutX="249.0" layoutY="29.0" prefHeight="579.0" prefWidth="678.0" styleClass="information" stylesheets="@home.css">
                <children>
-                  <VBox fx:id="messenger_scene" layoutX="9.0" layoutY="56.0" prefHeight="522.0" prefWidth="658.0" />
-                  <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="87.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                  <VBox fx:id="messenger_scene" layoutX="345.0" layoutY="56.0" prefHeight="522.0" prefWidth="322.0" />
+                  <VBox fx:id="messenger_scene1" layoutX="23.0" layoutY="56.0" prefHeight="522.0" prefWidth="322.0" />
+                  <ImageView fx:id="avatarFriend" fitHeight="28.0" fitWidth="35.0" layoutX="87.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/user (7).png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="123.0" layoutY="16.0" prefHeight="18.0" prefWidth="172.0" text="Huynh Anh">
+                  <Label fx:id="nameFriend" layoutX="123.0" layoutY="16.0" prefHeight="18.0" prefWidth="172.0" text="Friend">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -138,27 +139,27 @@
                         <Image url="@../image/facetime-button.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="626.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="626.0" layoutY="15.0" onMouseClicked="#informationclick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/dots.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="28.0" fitWidth="35.0" layoutX="37.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exit" fitHeight="28.0" fitWidth="35.0" layoutX="37.0" layoutY="16.0" onMouseClicked="#exitclick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/left-arrow (1).png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="949.0" layoutY="29.0" prefHeight="645.0" prefWidth="225.0" styleClass="information" stylesheets="@home.css">
+            <AnchorPane fx:id="informationfriend" layoutX="949.0" layoutY="29.0" prefHeight="645.0" prefWidth="225.0" styleClass="information" stylesheets="@home.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-72.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="125.0" fitWidth="95.0" layoutX="65.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="avatarFriend1" fitHeight="125.0" fitWidth="95.0" layoutX="65.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/user (7).png" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutX="27.0" layoutY="125.0" prefHeight="18.0" prefWidth="172.0" text="Huynh Anh">
+                  <Label fx:id="nameFriend1" alignment="CENTER" layoutX="27.0" layoutY="125.0" prefHeight="18.0" prefWidth="172.0" text="Huynh Anh">
                      <font>
                         <Font name="Bauhaus 93" size="24.0" />
                      </font>

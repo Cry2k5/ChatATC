@@ -104,8 +104,9 @@ public class LoginController extends Thread{
     private Connection connect;
 	private PreparedStatement prepare;
 	private ResultSet result;
-	public static String nameAccount = null;
+	public static String nameAccount ;
 
+	public static String urlAvatar;
 public void loginBtn() throws Exception{
 
 		
@@ -116,7 +117,7 @@ public void loginBtn() throws Exception{
 			} 
 			else {
 				signin_error.setText(null);
-				String selectData = "SELECT name, email, password FROM user WHERE email = ? and password = ?";
+				String selectData = "SELECT name, email, avatar, password FROM user WHERE email = ? and password = ?";
 
 				connect = JDBCUtil.getConnection();
 
@@ -131,6 +132,7 @@ public void loginBtn() throws Exception{
 					if (result.next()) {
 
 						nameAccount = result.getString("name");
+						urlAvatar = result.getString("avatar");
 						System.out.println(result.getString("name"));
 						
 						data.name = result.getString("name");

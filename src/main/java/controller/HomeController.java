@@ -50,6 +50,15 @@ public class HomeController {
 
     private static final String SERVER_ADDRESS = "localhost";
     private static final int PORT = 12345;
+    public VBox messenger_scene1;
+    public ImageView avatarAccount;
+    public Label nameAccount;
+    public Label nameFriend;
+    public ImageView avatarFriend;
+    public Label nameFriend1;
+    public ImageView avatarFriend1;
+    public AnchorPane informationfriend;
+    public AnchorPane chatscene;
 
     private Socket socket;
     private ObjectOutputStream outputStream;
@@ -73,6 +82,9 @@ public class HomeController {
         scene_people.setVisible(false);
         scene_setting.setVisible(false);
         FriendScene();
+        nameAccount.setText(LoginController.nameAccount);
+        avatarAccount.setImage(FriendController.urlToImage(LoginController.urlAvatar)) ;
+
     }
 
     public void ongroup(MouseEvent mouseEvent) {
@@ -179,6 +191,13 @@ public class HomeController {
         sendMessage(FriendController.name, messenger.getText());
     }
 
+public  void setavatarandnamefriend(){
+        nameFriend.setText(FriendController.name);
+        avatarFriend.setImage(FriendController.frientavatar);
+    nameFriend1.setText(FriendController.name);
+    avatarFriend1.setImage(FriendController.frientavatar);
+    chatscene.setVisible(true);
+}
         public void connect() {
             try {
                 // Kết nối tới server
@@ -233,9 +252,16 @@ public class HomeController {
                     HashMap<String, String> messageMap = (HashMap<String, String>) inputStream.readObject();
 
                     // Xử lý tin nhắn nhận được từ server
-                    handleMessage(messageMap);
+                    String recipient = messageMap.get("recipient");
+                    if (recipient != null &&recipient.equals(LoginController.nameAccount)) {
+                        // Hiển thị tin nhắn cho người dùng
+                        String message = messageMap.get("message");
+                        System.out.println("Nhận được tin nhắn từ server: " + message);
+                        recivice(messageMap.get("message"));
+                    }
+                    System.out.println(LoginController.nameAccount);
                     System.out.println("hashmap from listen:"+ messageMap);
-                    recivice(messageMap.get("message"));
+
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -252,30 +278,28 @@ public class HomeController {
 
             // Thiết lập căn lề và giao diện của label
             newMessage.setPadding(new Insets(10));
-            messenger_scene.setSpacing(20);
-            messenger_scene.setPadding(new Insets(5));
+            messenger_scene1.setSpacing(20);
+            messenger_scene1.setPadding(new Insets(5));
             newMessage.setBackground(new Background(new BackgroundFill(Color.GRAY, new CornerRadii(20), null)));
             newMessage.setTextFill(Color.WHITE); // Thiết lập màu chữ là màu trắng
             newMessage.setFont(Font.font(15)); // Thiết lập font là cỡ chữ 14
-            messenger_scene.setAlignment(Pos.TOP_LEFT);
+            messenger_scene1.setAlignment(Pos.TOP_LEFT);
 
             // Đặt id để có thể tìm kiếm trong VBox
             newMessage.setId("message1");
-            VBox messengerScene = (VBox) scene_chat.lookup("#messenger_scene");
+            VBox messengerScene = (VBox) scene_chat.lookup("#messenger_scene1");
             // Thêm label vào VBox
             messengerScene.getChildren().add(newMessage);
         });
     }
 
 
-    private void handleMessage(HashMap<String, String> messageMap) {
-        // Kiểm tra xem tin nhắn có dành cho client này không
-        String recipient = messageMap.get("recipient");
-        System.out.println(FriendController.name);
-        if (recipient != null &&recipient.equals(FriendController.name)) {
-            // Hiển thị tin nhắn cho người dùng
-            String message = messageMap.get("message");
-            System.out.println("Nhận được tin nhắn từ server: " + message);
-        }
+    public void exitclick(MouseEvent mouseEvent) {
+        chatscene.setVisible(false);
+        informationfriend.setVisible(false);
+    }
+
+    public void informationclick(MouseEvent mouseEvent) {
+        informationfriend.setVisible(true);
     }
 }

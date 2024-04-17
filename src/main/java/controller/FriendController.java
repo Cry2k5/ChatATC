@@ -53,11 +53,12 @@ public class FriendController {
         }
     return datalist;
     }
-
+    public User user1;
 
     public void setData(User user) {
         friends_name.setText(user.getname());
         friends_avatar.setImage(urlToImage(user.getimage()));
+       user1 = user;
     }
 
     public static Image urlToImage(String imagePath) {
@@ -73,12 +74,20 @@ public class FriendController {
         }
     }
 
-
+    public static Image frientavatar;
     public  void connectSocketclick(MouseEvent mouseEvent) throws IOException {
-      name = friends_name.getText();
+        name = friends_name.getText();
         System.out.println(name);
-
+        frientavatar = urlToImage(user1.getimage());
+        HomeController homeController = new HomeController();
+        homeController.setavatarandnamefriend(); // Gọi phương thức setavatarandnamefriend() để khởi tạo nameFriend và avatarFriend
+        homeController.nameFriend.setText(name);
+        homeController.avatarFriend.setImage(frientavatar);
+        homeController.nameFriend1.setText(name);
+        homeController.avatarFriend1.setImage(frientavatar);
+        homeController.chatscene.setVisible(true);
     }
+
 
 }
 
